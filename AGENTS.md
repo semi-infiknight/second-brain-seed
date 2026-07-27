@@ -22,3 +22,16 @@ inline (there's no wrapper script). Notes:
   does not override existing env vars, an injected secret works even without a `.env`.
 - The `SKILL.md` snippets use macOS `open` to preview the result — on this Linux VM use `xdg-open`
   (or just reference the saved path).
+
+### Railway deployment (`server/`)
+
+- `server/` holds a small FastAPI web surface for the project (landing page, `/health`, `/skills`,
+  `/generate`). It's a deployment wrapper only — the real product is still the `SEED.md` markdown brain.
+- It deploys to the Railway `second-brain` project via the `RAILWAY_TOKEN` **project token** (env var).
+  Deploy from `server/`: `railway up --service second-brain-web --ci` (Railway auto-detects Python).
+  The Railway CLI is installed by the startup update script.
+- `railway status` shows "Linked service: None" because a project token isn't tied to a local link —
+  that's expected; pass `--service second-brain-web` to CLI commands.
+- Live URL: `https://second-brain-web-production-c8eb.up.railway.app`.
+- `/generate` needs `GEMINI_API_KEY` set as a Railway variable
+  (`railway variables --set GEMINI_API_KEY=... --service second-brain-web`); until then it returns 503.
