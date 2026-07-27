@@ -11,7 +11,14 @@ check, and the example Gemini image-generation skill as an HTTP endpoint.
 | GET    | `/`         | Landing page                                             |
 | GET    | `/health`   | Health check (reports whether `GEMINI_API_KEY` is set)   |
 | GET    | `/skills`   | Lists the example skills                                  |
-| POST   | `/generate` | `{ "prompt": "...", "aspect_ratio": "1:1" }` → PNG (base64). Needs `GEMINI_API_KEY`. |
+| POST   | `/generate` | `{ "prompt": "...", "aspect_ratio": "1:1", "provider": "auto" }` → image (base64). |
+
+### Image providers
+
+`/generate` works **out of the box with no API key** using the free
+[`pollinations.ai`](https://pollinations.ai) provider. If `GEMINI_API_KEY` is set, it uses the
+nano-banana Gemini skill instead. Override per-request with `"provider": "pollinations"` or
+`"provider": "gemini"` (default `"auto"`).
 
 ## Run locally
 
@@ -30,8 +37,9 @@ railway up                # builds & deploys this directory (Nixpacks: Python)
 railway domain            # generates a public URL
 ```
 
-Set `GEMINI_API_KEY` as a Railway variable to enable `/generate`:
+`/generate` works with no key (Pollinations). To switch to Gemini, set `GEMINI_API_KEY` as a Railway
+variable:
 
 ```bash
-railway variables --set GEMINI_API_KEY=your_key
+railway variables --set GEMINI_API_KEY=your_key --service second-brain-web
 ```

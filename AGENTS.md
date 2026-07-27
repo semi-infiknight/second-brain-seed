@@ -35,5 +35,6 @@ inline (there's no wrapper script). Notes:
 - `railway status` shows "Linked service: None" because a project token isn't tied to a local link —
   that's expected; pass `--service second-brain-web` to CLI commands.
 - Live URL: `https://second-brain-web-production-c8eb.up.railway.app`.
-- `/generate` needs `GEMINI_API_KEY` set as a Railway variable
-  (`railway variables --set GEMINI_API_KEY=... --service second-brain-web`); until then it returns 503.
+- `/generate` works with **no API key** by default via the free, keyless `pollinations.ai` provider.
+  If `GEMINI_API_KEY` is set it uses the nano-banana Gemini skill instead; per-request override with
+  `{"provider": "pollinations" | "gemini" | "auto"}`.
