@@ -29,7 +29,9 @@ inline (there's no wrapper script). Notes:
   `/generate`). It's a deployment wrapper only — the real product is still the `SEED.md` markdown brain.
 - It deploys to the Railway `second-brain` project via the `RAILWAY_TOKEN` **project token** (env var).
   Deploy from `server/`: `railway up --service second-brain-web --ci` (Railway auto-detects Python).
-  The Railway CLI is installed by the startup update script.
+  The Railway CLI is not part of the update script; install it on demand with
+  `sudo env "PATH=$PATH" npm install -g @railway/cli` (sudo is passwordless on this VM, but `npm`
+  isn't on root's PATH, hence the `env PATH` wrapper).
 - `railway status` shows "Linked service: None" because a project token isn't tied to a local link —
   that's expected; pass `--service second-brain-web` to CLI commands.
 - Live URL: `https://second-brain-web-production-c8eb.up.railway.app`.
