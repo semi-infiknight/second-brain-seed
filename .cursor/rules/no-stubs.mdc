@@ -1,0 +1,14 @@
+---
+description: Never use stubs
+alwaysApply: true
+---
+
+# Never use stubs
+
+Always deliver complete, working implementations. Do not use stubs.
+
+- Never leave stub functions, placeholder bodies, or no-op implementations (e.g. `pass`, `return None`, `throw new Error("not implemented")`, `TODO`/`FIXME` in place of real logic).
+- Never fake or hardcode data to simulate functionality that isn't actually implemented.
+- Never comment out real logic and replace it with a placeholder to make something "look" done.
+- If a full implementation depends on something genuinely unavailable (a missing secret, an external service, an undecided design), do not silently stub it — implement everything that can be built, and explicitly call out the blocker and what's needed to finish it.
+- Prefer a smaller fully-working slice over a broad set of half-implemented stubs.
